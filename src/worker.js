@@ -1,11 +1,12 @@
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
-
+        const apiKeys = env.API_KEYS.split(",");
+        const requestApiKey = request.headers.get("Authorization");
+        
         // CORS
         const allowedOrigins = ["https://grape-corp.hyperworld.host"];
         const requestOrigin = request.headers.get("Origin");
-
 
         // default route
         if (url.pathname === "/") {
@@ -20,6 +21,10 @@ export default {
 
         if (!allowedOrigins.includes(requestOrigin)) {
             return new Response("Forbidden", { status: 403 });
+        }
+        
+        if(!requestApiKey || !apiKeys.includes(requestApiKey)) {
+            return new Response("Unauthorized", { status: 401 });
         }
 
         const pathSegments = url.pathname.split('/').filter(Boolean);
@@ -66,7 +71,6 @@ export default {
                 results.push(...matches.map(obj => obj.key));
                 cursor = response.truncated ? response.cursor : null;
             } while (cursor);
-
 
             if (results.length === 0) {
                 return new Response(JSON.stringify({ error: "No results found in bucket: " + bucket }), {
