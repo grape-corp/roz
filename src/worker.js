@@ -2,13 +2,10 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
 
-        /* CORS
-        const allowedOrigins = ["https://irving.grape.wtf", "https://grape-corp.hyperworld.host"];
+        // CORS
+        const allowedOrigins = ["https://grape-corp.hyperworld.host"];
         const requestOrigin = request.headers.get("Origin");
-        if (!allowedOrigins.includes(requestOrigin)) {
-            return new Response("Forbidden", { status: 403 });
-        }
-        */
+
 
         // default route
         if (url.pathname === "/") {
@@ -21,12 +18,15 @@ export default {
             return handleJoke();
         }
 
-        // Parse path segments
+        if (!allowedOrigins.includes(requestOrigin)) {
+            return new Response("Forbidden", { status: 403 });
+        }
+
         const pathSegments = url.pathname.split('/').filter(Boolean);
         if (pathSegments[0] !== 'search') {
             return new Response("Not Found", { status: 404 });
         }
-
+        
         const bucket = pathSegments[1];
         const searchTerm = url.searchParams.get("k");
 
