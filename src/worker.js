@@ -19,13 +19,11 @@ export default {
             return handleJoke();
         }
 
+        /*
         if (!allowedOrigins.includes(requestOrigin)) {
             return new Response("Forbidden", { status: 403 });
         }
-        
-        if(!requestApiKey || !apiKeys.includes(requestApiKey)) {
-            return new Response("Unauthorized", { status: 401 });
-        }
+        */
 
         const pathSegments = url.pathname.split('/').filter(Boolean);
         if (pathSegments[0] !== 'search') {
@@ -46,13 +44,25 @@ export default {
             let targetBucket;
             switch (bucket) {
                 case 'image':
+                    if(!requestApiKey || !apiKeys.includes(requestApiKey)) {
+                        return new Response("Unauthorized", { status: 401 });
+                    }
                     targetBucket = env.IMAGE_BUCKET;
                     break;
                 case 'video':
+                    if(!requestApiKey || !apiKeys.includes(requestApiKey)) {
+                        return new Response("Unauthorized", { status: 401 });
+                    }
                     targetBucket = env.VIDEO_BUCKET;
                     break;
                 case 'mp4':
+                    if(!requestApiKey || !apiKeys.includes(requestApiKey)) {
+                        return new Response("Unauthorized", { status: 401 });
+                    }
                     targetBucket = env.MP4_BUCKET;
+                    break;
+                case 'hyp':
+                    targetBucket = env.HYP_BUCKET;
                     break;
                 default:
                     return new Response(JSON.stringify({ error: "Invalid bucket" }), {
@@ -71,6 +81,7 @@ export default {
                 results.push(...matches.map(obj => obj.key));
                 cursor = response.truncated ? response.cursor : null;
             } while (cursor);
+
 
             if (results.length === 0) {
                 return new Response(JSON.stringify({ error: "No results found in bucket: " + bucket }), {
