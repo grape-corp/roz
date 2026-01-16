@@ -1,6 +1,6 @@
 name = "roz"
 type = "javascript"
-account_id = "3d18da2cdf439d8abec4e13f1b6f3c3c"
+account_id = "343722b0bfef3b2b8521e1a215020408"
 workers_dev = false
 compatibility_date = "2024-02-27"
 
@@ -15,6 +15,11 @@ bucket_name = "audio"
 [[r2_buckets]]
 binding = "IMAGE_BUCKET"
 bucket_name = "image"
+
+[[r2_buckets]]
+binding = "IMAGE_PUBLIC_BUCKET"
+bucket_name = "image_public"
+
 
 [[r2_buckets]]
 binding = "MP4_BUCKET"
