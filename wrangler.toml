@@ -2,7 +2,7 @@ name = "roz"
 type = "javascript"
 account_id = "343722b0bfef3b2b8521e1a215020408"
 workers_dev = false
-compatibility_date = "2024-02-27"
+compatibility_date = "2026-01-16"
 
 # Main entry point
 main = "src/worker.js" 
@@ -18,7 +18,7 @@ bucket_name = "image"
 
 [[r2_buckets]]
 binding = "IMAGE_PUBLIC_BUCKET"
-bucket_name = "image_public"
+bucket_name = "image-public"
 
 
 [[r2_buckets]]
@@ -28,3 +28,8 @@ bucket_name = "mp4"
 [[r2_buckets]]
 binding = "ICON_BUCKET"
 bucket_name = "icon"
+
+# Custom Domain
+[[routes]]
+pattern = "roz.odell.house"
+custom_domain = true
