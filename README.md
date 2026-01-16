@@ -12,7 +12,7 @@ meet roz, your favorite administrator.
 
 ## default route
 
-`https://roz.grape.wtf` --> [say hi to roz!](https://roze.grape.wtf)
+`https://roz.grape.wtf` --> [say hi to roz!](https://roz.grape.wtf)
 
 ## routes
 
