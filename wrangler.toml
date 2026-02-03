@@ -1,35 +1,26 @@
 name = "roz"
-type = "javascript"
 account_id = "343722b0bfef3b2b8521e1a215020408"
 workers_dev = false
-compatibility_date = "2026-01-16"
+compatibility_date = "2026-02-02"
+main = "src/worker.js"  # Top-level is correct in v4.6+
 
-# Main entry point
-main = "src/worker.js" 
+# Routes
+routes = ["roz.odell.house/*"]
 
 # R2 Bucket Bindings
 [[r2_buckets]]
-binding = "AUDIO_BUCKET"
-bucket_name = "audio"
+binding = "JPG"
+bucket_name = "jpg"
 
 [[r2_buckets]]
-binding = "IMAGE_BUCKET"
-bucket_name = "image"
+binding = "JPG_PUBLIC"
+bucket_name = "jpg-public"
 
 [[r2_buckets]]
-binding = "IMAGE_PUBLIC_BUCKET"
-bucket_name = "image-public"
-
-
-[[r2_buckets]]
-binding = "MP4_BUCKET"
+binding = "MP4"
 bucket_name = "mp4"
 
 [[r2_buckets]]
-binding = "ICON_BUCKET"
+binding = "ICON"
 bucket_name = "icon"
 
-# Custom Domain
-[[routes]]
-pattern = "roz.odell.house"
-custom_domain = true

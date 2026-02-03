@@ -1,13 +1,13 @@
  export function resolveBucket(env, bucket) {
     switch (bucket) {
-        case 'image':
-            return env.IMAGE_BUCKET;
-        case 'image-public':
-            return env.IMAGE_PUBLIC_BUCKET;
+        case 'jpg':
+            return env.JPG;
+        case 'jpg-public':
+            return env.JPG_PUBLIC;
         case 'mp4':
-            return env.MP4_BUCKET;
+            return env.MP4;
         case 'icon':
-            return env.HYP_BUCKET;
+            return env.ICON
         default:
             throw new Response("Invalid bucket", { status: 400 });
     }
@@ -17,6 +17,8 @@
     const requestApiKey = request.headers.get("Authorization");
     const apiKeys = env.API_KEYS.split(",");
     if (!requestApiKey || !apiKeys.includes(requestApiKey)) {
-        throw new Response("Unauthorized", { status: 401 });
+        return new Response("Unauthorized", { status: 401 });
     }
- }
+    // Return null if authorized
+    return null;
+}

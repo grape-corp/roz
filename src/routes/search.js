@@ -10,11 +10,6 @@ export async function handleSearch(request, env, bucket, url) {
         });
     }
 
-    const protectedBuckets = ['mp4', 'icon', 'image'];
-    if (protectedBuckets.includes(bucket)) {
-        requireApiKey(request, env);
-    }
-
     let targetBucket;
     try {
         targetBucket = resolveBucket(env, bucket);
